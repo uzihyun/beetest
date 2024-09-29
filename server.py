@@ -11,7 +11,7 @@ MODEL_PATH = './accuracy_85.keras'  # 여기에 실제 .keras 파일 경로를 �
 model = load_model(MODEL_PATH)
 
 # 업로드된 이미지를 저장할 경로
-UPLOAD_FOLDER = './uploads/'
+UPLOAD_FOLDER = './static/uploads/'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
@@ -45,9 +45,16 @@ def predict():
 
         # 예측
         predictions = model.predict(img_array)
-        result = np.argmax(predictions, axis=1)  # 예측된 클래스
 
-        return render_template('result.html', prediction=result[0])
+        # 클래스 리스트
+        classlist = ["cans", "glass", "other_ps", "p_bowls", "pets"]
+
+        # 가장 높은 확률을 가진 클래스의 인덱스 추출
+        result_index = np.argmax(predictions, axis=1)[0]
+        answer = classlist[result_index]  # 인덱스에 해당하는 클래스를 설정
+
+        # 결과와 함께 이미지 경로 전달
+        return render_template('result.html', prediction=answer, filename=file.filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

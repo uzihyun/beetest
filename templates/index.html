@@ -4,13 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이미지 판단 시스템</title>
+    <style>
+        #preview {
+            margin-top: 20px;
+            max-width: 100%;
+            max-height: 400px;
+        }
+    </style>
 </head>
 <body>
     <h1>이미지 판단 시스템</h1>
     <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
-        <label for="file">이미지 파일을 선택하세요:</label>
-        <input type="file" name="file" id="file" accept="image/*">
+        <label for="file">이미지를 선택하세요</label>
+        <br><br>
+        <!-- 파일 선택 버튼 -->
+        <input type="file" name="file" id="file" accept="image/*" onchange="loadImagePreview(event)">
+        <br><br>
+        <!-- 이미지 미리보기 영역 -->
+        <img id="preview" src="" alt="이미지 미리보기" style="display: none;">
+        <br><br>
+        <!-- 이미지 분석 버튼 -->
         <button type="submit">이미지 분석</button>
     </form>
+
+    <script>
+        function loadImagePreview(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block'; // 이미지가 선택되면 미리보기 표시
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '';
+                preview.style.display = 'none'; // 이미지가 없을 경우 미리보기 숨김
+            }
+        }
+    </script>
 </body>
 </html>
