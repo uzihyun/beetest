@@ -3,4 +3,3 @@ joblib
 scikit-learn
 torch
 Pillow
-numpy
