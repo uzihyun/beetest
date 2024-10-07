@@ -4,8 +4,7 @@ import joblib
 import torch
 import clip
 from PIL import Image
-import numpy as np
-from torchvision import transforms
+
 
 app = Flask(__name__)
 
