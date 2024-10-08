@@ -4,13 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이미지 판단 시스템</title>
-    <style>
-        #preview {
-            margin-top: 20px;
-            max-width: 100%;
-            max-height: 400px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
     <h1>이미지 판단 시스템</h1>
@@ -27,23 +21,6 @@
         <button type="submit">이미지 분석</button>
     </form>
 
-    <script>
-        function loadImagePreview(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('preview');
-            
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block'; // 이미지가 선택되면 미리보기 표시
-                }
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = '';
-                preview.style.display = 'none'; // 이미지가 없을 경우 미리보기 숨김
-            }
-        }
-    </script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>
